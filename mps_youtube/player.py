@@ -79,11 +79,15 @@ def _generate_real_playerargs(song, override, stream, isvideo):
 
             if g.mpv_usesock:
                 list_update("--really-quiet", args)
+                list_update("--ytdl-format=bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]", args)
             else:
                 list_update("--really-quiet", args, remove=True)
+                list_update("--ytdl-format=bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]", args)
                 list_update(msglevel, args)
 
-    return [Config.PLAYER.get] + args + [stream['url']]
+    url = "https://www.youtube.com/watch?v=" + song.ytid
+
+    return [Config.PLAYER.get] + args + [url]
 
 
 def _get_input_file():
